@@ -65,10 +65,14 @@ async function init() {
     buildIndices();
     renderMap();
     bindUiEvents();
+    // lapor ke shell bahwa peta sudah selesai dirender
+    if (window.parent !== window) window.parent.postMessage({ __elitechReady: 'peta' }, '*');
   } catch (err) {
     console.error('Gagal memuat data:', err);
     document.getElementById('mapStage').innerHTML =
       '<p style="text-align:center;margin-top:40px;color:#999">Gagal memuat data peta. Coba muat ulang halaman.</p>';
+    // tetap lapor walau gagal, supaya shell tidak menunggu selamanya
+    if (window.parent !== window) window.parent.postMessage({ __elitechReady: 'peta' }, '*');
   }
 }
 
