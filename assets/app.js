@@ -451,3 +451,12 @@ function escapeAttr(str) { return escapeHtml(str); }
 function cssEscape(str) {
   return String(str).replace(/["\\]/g, '\\$&');
 }
+
+// ----------------------------------------------------------------------
+// Pesan dari shell (halaman induk): tema
+// ----------------------------------------------------------------------
+window.addEventListener('message', e => {
+  if (e.source !== window.parent) return;
+  const d = e.data;
+  if (d && d.__elitech === 'theme' && window.__setTheme) window.__setTheme(d.theme);
+});
