@@ -4,6 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Peta Distributor Elitech</title>
+<script>
+  /* Tema dipasang SEBELUM CSS dimuat supaya tidak ada kedipan putih.
+     Sumber: localStorage 'elitech_theme' (satu origin dengan shell), lalu dikoreksi
+     lewat pesan {__elitech:'theme'} dari shell (listener ada di app.js). */
+  (function () {
+    var d = document.documentElement;
+    function pref() { try { return localStorage.getItem('elitech_theme') || 'auto'; } catch (e) { return 'auto'; } }
+    function resolve(p) { return p === 'auto' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p; }
+    window.__setTheme = function (t) {
+      d.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+    };
+    window.__setTheme(resolve(pref()));
+    var mq = matchMedia('(prefers-color-scheme: dark)');
+    var h = function () { if (pref() === 'auto') window.__setTheme(resolve('auto')); };
+    if (mq.addEventListener) mq.addEventListener('change', h); else if (mq.addListener) mq.addListener(h);
+  })();
+</script>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
