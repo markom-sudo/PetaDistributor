@@ -70,7 +70,7 @@ async function init() {
   } catch (err) {
     console.error('Gagal memuat data:', err);
     document.getElementById('mapStage').innerHTML =
-      '<p style="text-align:center;margin-top:40px;color:#999">Gagal memuat data peta. Coba muat ulang halaman.</p>';
+      '<p style="text-align:center;margin-top:40px;color:var(--muted)">Gagal memuat data peta. Coba muat ulang halaman.</p>';
     // tetap lapor walau gagal, supaya shell tidak menunggu selamanya
     if (window.parent !== window) window.parent.postMessage({ __elitechReady: 'peta' }, '*');
   }
@@ -253,7 +253,7 @@ function openPanelForDistributor(nama) {
   const primaryProvinsi = info.provinsi || (coverage[0] || '');
 
   let html = distCardHtml(nama, primaryProvinsi);
-  html += '<div style="margin-top:14px;font-size:12px;color:#999;font-weight:700;letter-spacing:.3px;">MENCAKUP WILAYAH</div>';
+  html += '<div class="panel-label">MENCAKUP WILAYAH</div>';
   html += '<div style="margin-top:8px;">' + coverage.map(p =>
     `<span class="coverage-chip" data-goto="${escapeAttr(p)}">${titleCase(p)}</span>`
   ).join('') + '</div>';
