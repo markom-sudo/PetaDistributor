@@ -1,14 +1,103 @@
+/* ======================================================================
+   PETA DISTRIBUTOR ELITECH — style.css (terang + gelap dalam satu file)
+   Semua warna lewat variabel. Tema dipilih oleh atribut
+   <html data-theme="light|dark"> yang dipasang di <head> index.html.
+   Untuk mengubah warna tema gelap, cukup edit blok :root[data-theme="dark"].
+   ====================================================================== */
+
 :root {
+  color-scheme: light;
+
+  /* peta */
   --map-idle: #d9d9d9;
   --map-border: #ffffff;
   --map-hover: #435c79;
   --map-neighbor: #9a9a9a;
+
+  /* dasar */
+  --bg: #ffffff;
   --ink: #4a4a4a;
+  --text-strong: #333333;
+  --text-mid: #555555;
+  --muted: #999999;
+  --line: #eeeeee;
+  --accent: #1f3a5f;
+  --btn-fg: #ffffff;
+
+  /* header & pencarian */
+  --title: #5a5a5a;
+  --title-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+  --subtitle: #8a8a8a;
+  --input-bg: #ffffff;
+  --input-fg: #333333;
+  --placeholder: #b6b6b6;
+  --dd-bg: #ececec;
+  --item-bg: #e2e2e2;
+  --item-hover: #d3d3d3;
+  --item-fg: #4a4a4a;
+  --tag-fg: #9a9a9a;
+
+  /* label hover */
+  --label-bg: rgba(255,255,255,0.9);
+
+  /* panel */
+  --overlay: rgba(0,0,0,0.15);
   --panel-bg: #ffffff;
   --panel-header-bg: #8a8a8a;
-  --accent: #1f3a5f;
+  --panel-header-fg: #ffffff;
+  --panel-header-line: transparent;
+  --chip-bg: #eef1f5;
+  --chip-hover: #dfe6ee;
+
+  /* toast */
+  --toast-bg: #2b2b2b;
+  --toast-fg: #ffffff;
+
   --transition-fast: 160ms ease;
   --transition-zoom: 700ms cubic-bezier(.2,.8,.2,1);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --map-idle: #2a2f3d;
+  --map-border: #0f1117;
+  --map-hover: #8da2f7;
+  --map-neighbor: #3d4457;
+
+  --bg: #0f1117;
+  --ink: #e8eaf0;
+  --text-strong: #e8eaf0;
+  --text-mid: #c3c8d4;
+  --muted: #a3a9b8;
+  --line: #2c3142;
+  --accent: #8da2f7;
+  --btn-fg: #0f1117;
+
+  --title: #e8eaf0;
+  --title-shadow: none;
+  --subtitle: #a3a9b8;
+  --input-bg: #1e2230;
+  --input-fg: #e8eaf0;
+  --placeholder: #6f7686;
+  --dd-bg: #171a23;
+  --item-bg: #1e2230;
+  --item-hover: #262b3b;
+  --item-fg: #e8eaf0;
+  --tag-fg: #a3a9b8;
+
+  --label-bg: #2b3042;
+
+  --overlay: rgba(0,0,0,0.6);
+  --panel-bg: #171a23;
+  --panel-header-bg: #171a23;
+  --panel-header-fg: #e8eaf0;
+  --panel-header-line: #2c3142;
+  --chip-bg: #222a4a;
+  --chip-hover: #2c3560;
+
+  --toast-bg: #e8eaf0;
+  --toast-fg: #14151a;
 }
 
 * { box-sizing: border-box; }
@@ -19,10 +108,11 @@ html, body {
   height: 100%;
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-  background: #ffffff;
+  background: var(--bg);
   color: var(--ink);
 }
 
+/* ---------- Header & pencarian ---------- */
 .topbar {
   position: relative;
   z-index: 20;
@@ -35,14 +125,14 @@ html, body {
   font-size: clamp(28px, 5vw, 56px);
   font-weight: 900;
   letter-spacing: 1px;
-  color: #5a5a5a;
-  text-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+  color: var(--title);
+  text-shadow: var(--title-shadow);
 }
 
 .subtitle {
   margin: 4px 0 14px;
   font-style: italic;
-  color: #8a8a8a;
+  color: var(--subtitle);
   font-size: clamp(11px, 1.6vw, 14px);
   letter-spacing: 1px;
 }
@@ -61,10 +151,11 @@ html, body {
   box-shadow: 0 2px 10px rgba(0,0,0,0.12);
   font-size: 15px;
   font-style: italic;
-  color: #333;
+  background: var(--input-bg);
+  color: var(--input-fg);
   outline: none;
 }
-#searchInput::placeholder { color: #b6b6b6; }
+#searchInput::placeholder { color: var(--placeholder); }
 
 #searchBtn {
   position: absolute;
@@ -75,7 +166,7 @@ html, body {
   border: none;
   border-radius: 50%;
   background: var(--accent);
-  color: #fff;
+  color: var(--btn-fg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,7 +178,7 @@ html, body {
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background: #ececec;
+  background: var(--dd-bg);
   border-radius: 18px;
   padding: 6px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.18);
@@ -100,24 +191,25 @@ html, body {
   display: block;
   width: 100%;
   text-align: center;
-  background: #e2e2e2;
+  background: var(--item-bg);
   border: none;
   border-radius: 16px;
   padding: 12px 14px;
   margin: 4px 0;
   font-size: 13px;
   letter-spacing: 0.3px;
-  color: #4a4a4a;
+  color: var(--item-fg);
   cursor: pointer;
   transition: background var(--transition-fast);
 }
-.search-item:hover, .search-item.active { background: #d3d3d3; }
+.search-item:hover, .search-item.active { background: var(--item-hover); }
 .search-item .tag {
   font-size: 10px;
-  color: #9a9a9a;
+  color: var(--tag-fg);
   margin-left: 6px;
 }
 
+/* ---------- Peta ---------- */
 #mapStage {
   position: relative;
   width: 100%;
@@ -140,7 +232,7 @@ html, body {
 .hover-label {
   position: absolute;
   pointer-events: none;
-  background: rgba(255,255,255,0.9);
+  background: var(--label-bg);
   color: var(--accent);
   font-weight: 700;
   font-size: 13px;
@@ -152,10 +244,11 @@ html, body {
 }
 .hover-label.hidden { display: none; }
 
+/* ---------- Panel samping ---------- */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.15);
+  background: var(--overlay);
   z-index: 25;
   opacity: 0;
   pointer-events: none;
@@ -171,6 +264,7 @@ html, body {
   bottom: 0;
   width: min(380px, 90vw);
   background: var(--panel-bg);
+  color: var(--ink);
   box-shadow: -8px 0 24px rgba(0,0,0,0.18);
   z-index: 30;
   display: flex;
@@ -183,7 +277,8 @@ html, body {
 
 .panel-header {
   background: var(--panel-header-bg);
-  color: #fff;
+  color: var(--panel-header-fg);
+  border-bottom: 1px solid var(--panel-header-line);
   padding: 18px 20px;
   display: flex;
   align-items: center;
@@ -197,7 +292,7 @@ html, body {
 #panelClose {
   background: none;
   border: none;
-  color: #fff;
+  color: var(--panel-header-fg);
   font-size: 26px;
   line-height: 1;
   cursor: pointer;
@@ -209,8 +304,16 @@ html, body {
   flex: 1;
 }
 
+.panel-label {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+
 .dist-card {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--line);
   padding: 14px 0;
 }
 .dist-card:last-child { border-bottom: none; }
@@ -223,24 +326,24 @@ html, body {
 .dist-name {
   font-weight: 700;
   font-size: 15px;
-  color: #333;
+  color: var(--text-strong);
 }
 .dist-addr {
   font-style: italic;
-  color: #8a8a8a;
+  color: var(--subtitle);
   font-size: 12.5px;
   margin-top: 4px;
   line-height: 1.4;
 }
 .dist-phone {
   font-size: 12.5px;
-  color: #555;
+  color: var(--text-mid);
   margin-top: 2px;
 }
 .share-btn {
   flex: none;
   background: var(--accent);
-  color: #fff;
+  color: var(--btn-fg);
   border: none;
   border-radius: 6px;
   padding: 6px 12px;
@@ -253,7 +356,7 @@ html, body {
 
 .coverage-chip {
   display: inline-block;
-  background: #eef1f5;
+  background: var(--chip-bg);
   color: var(--accent);
   border-radius: 14px;
   padding: 6px 12px;
@@ -261,10 +364,10 @@ html, body {
   font-size: 12px;
   cursor: pointer;
 }
-.coverage-chip:hover { background: #dfe6ee; }
+.coverage-chip:hover { background: var(--chip-hover); }
 
 .empty-note {
-  color: #999;
+  color: var(--muted);
   font-size: 13px;
   font-style: italic;
 }
@@ -274,8 +377,8 @@ html, body {
   bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
-  background: #2b2b2b;
-  color: #fff;
+  background: var(--toast-bg);
+  color: var(--toast-fg);
   padding: 10px 22px;
   border-radius: 20px;
   font-size: 13px;
